@@ -33,6 +33,12 @@
             <div class="card card-body border-dark text-primary mt-5">
                 <span class="text-center txt-sm">{% block card-title %}Fill OUT THE FORM BELOW{% endblock card-title %}</span>
             </div>
+            <!-- Flash Message Block -->
+            {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} mt-3 text-center">{{ message }}</div>
+              {% endfor %}
+            {% endif %}
             <form {% block action %}action="/add_patient/"{% endblock action %} method="POST" autocomplete="off"
                 enctype="multipart/form-data" class="card p-3 border-dark mt-3 mb-5">
                 {% csrf_token %}
@@ -69,8 +75,8 @@
                         <option value="" hidden>Select the gender</option>
                         {% endblock option %}
                         <option disabled></option>
-                        <option value="">M</option>
-                        <option value="">F</option>
+                        <option value="M">M</option>
+                        <option value="F">F</option>
                     </select>
                 </div>
 

@@ -5,25 +5,25 @@ from django.conf.urls.static import static
 from App import views
 
 urlpatterns = [
-    # Native path to access the django-admin.
+    # Admin panel
     path('admin/', admin.site.urls),
-    # Path to access the Frontend Page.
-    path('' ,views.frontend, name='frontend'),
-    # Path to Login / Logout 
-    path('login/', include('django.contrib.auth.urls')),
 
-    # BACKEND SECTION 
+    # Include all app-level URLs
+    path('', include('App.urls')),
+
+    # Website Frontend Page
+    path('home/', views.frontend, name='frontend'),
+
+    # Backend dashboard
     path('backend/', views.backend, name='backend'),
 
-    # Path to Add a Pateint 
-    path('add_patient/', views.add_patient, name = 'add_patient'),
+    # Patient operations
+    path('add_patient/', views.add_patient, name='add_patient'),
+    path('patient/<str:patient_id>/', views.patient, name='patient'),
+    path('edit_patient/', views.edit_patient, name='edit_patient'),
+    path('delete_patient/<str:patient_id>/', views.delete_patient, name='delete_patient'),
+]
 
-    # Path to Access Patient Individually 
-    path('patient/<str:patient_id>/', views.patient, name = 'patient'),
-
-    # Path to Edit Patient
-    path('edit_patient/', views.edit_patient, name = 'edit_patient'), 
-
-    # Path to Delete the patient 
-    path('delete_patient/<str:patient_id>/', views.delete_patient, name = 'delete_patient'),
-] 
+# Serve media/static files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

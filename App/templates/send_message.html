@@ -1,0 +1,13 @@
+<!-- templates/send_message.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container">
+    <h2>Send Message to Patient</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(to right, #FF6F91, rgb(225 224 255));
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .register-selection {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #fdfbff;
+    flex-direction: column;
+  }
+  .selection-box {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    max-width: 500px;
+    width: 100%;
+  }
+  .selection-box h2 {
+    font-weight: bold;
+    color: #5e5df0;
+    margin-bottom: 1.5rem;
+  }
+  .btn-select-role {
+    padding: 12px 25px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    color: white;
+    margin: 10px;
+    font-size: 1.1rem;
+    transition: 0.3s;
+  }
+  .btn-patient { background: #6c63ff; }
+  .btn-doctor { background: #d63384; }
+  .btn-patient:hover { background: #5548c8; }
+  .btn-doctor:hover { background: #ad296d; }
+</style>
+
+<div class="register-selection">
+  <div class="selection-box">
+    <h2>Register as</h2>
+    <a href="{% url 'register_patient' %}" class="btn btn-select-role btn-patient">Patient</a>
+    <a href="{% url 'register_doctor' %}" class="btn btn-select-role btn-doctor">Doctor</a>
+  </div>
+</div>
+{% endblock %}

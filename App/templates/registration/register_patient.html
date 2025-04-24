@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(to right, #FF6F91, rgb(225 224 255));
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .register-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  .register-image {
+    flex: 1;
+    background: url('{% static "img/register.jpg" %}') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 2rem;
+  }
+  .register-form {
+    flex: 1;
+    background: #ffffff;
+    padding: 4rem;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+  }
+  .register-form h2 {
+    color: #5e5df0;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    margin-top: 3.2rem;
+  }
+  .form-control {
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 0.5rem;
+  }
+  .form-error {
+    color: red;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .btn-register {
+    background: #5e5df0;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s ease;
+  }
+  .btn-register:hover {
+    background: #4e4cd9;
+  }
+</style>
+
+<div class="register-container">
+  <div class="register-image">
+    Welcome to HealthMate
+  </div>
+  <div class="register-form">
+    <h2>Sign Up</h2>
+
+    <!-- ✅ Flash Messages -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="username" class="form-control" placeholder="Username" value="{{ form.username.value|default_if_none:'' }}">
+      {% if form.username.errors %}
+      <div class="form-error">{{ form.username.errors.0 }}</div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col-md-6">
+          <input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ form.first_name.value|default_if_none:'' }}">
+          {% if form.first_name.errors %}
+            <div class="form-error">{{ form.first_name.errors.0 }}</div>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="{{ form.last_name.value|default_if_none:'' }}">
+          {% if form.last_name.errors %}
+            <div class="form-error">{{ form.last_name.errors.0 }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <input type="email" name="email" class="form-control" placeholder="Email" value="{{ form.email.value|default_if_none:'' }}">
+      {% if form.email.errors %}
+        <div class="form-error">{{ form.email.errors.0 }}</div>
+      {% endif %}
+
+      <input type="password" name="password1" class="form-control" placeholder="Password">
+      {% if form.password1.errors %}
+        <div class="form-error">{{ form.password1.errors.0 }}</div>
+      {% endif %}
+
+      <input type="password" name="password2" class="form-control" placeholder="Confirm Password">
+      {% if form.password2.errors %}
+        <div class="form-error">{{ form.password2.errors.0 }}</div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-register">Sign Up</button>
+    </form>
+
+    <div class="text-center mt-3">
+      Already have an account? <a href="{% url 'login' %}">Sign In</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

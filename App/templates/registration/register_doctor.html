@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(to right, #FF6F91, rgb(225 224 255));
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .register-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  .register-image {
+    flex: 1;
+    background: url('{% static "img/register-side2.jpg" %}') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 2rem;
+  }
+  .register-form {
+    flex: 1;
+    background: #ffffff;
+    border-top-left-radius: 0rem;
+    border-bottom-left-radius: 0rem;
+    padding: 4rem;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+  }
+  .register-form h2 {
+    color: #5e5df0;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    margin-top: 3.2rem;
+  }
+  .form-control {
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 1rem;
+  }
+  .btn-register {
+    background: #5e5df0;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s ease;
+  }
+  .btn-register:hover {
+    background: #4e4cd9;
+  }
+</style>
+
+<div class="register-container">
+  <div class="register-image">
+  
+  </div>
+  <div class="register-form">
+    <h2>Sign Up</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="username" class="form-control" placeholder="Username" value="{{ form.username.value|default_if_none:'' }}">
+      {% if form.username.errors %}
+        <div class="form-error">{{ form.username.errors.0 }}</div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col-md-6">
+          <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
+        </div>
+      </div>
+      <input type="email" name="email" class="form-control" placeholder="Email" required>
+      <input type="password" name="password1" class="form-control" placeholder="Password" required>
+      <input type="password" name="password2" class="form-control" placeholder="Confirm Password" required>
+
+      <button type="submit" class="btn btn-register">Sign Up</button>
+    </form>
+    <div class="text-center mt-3">
+      Already have an account? <a href="{% url 'login' %}">Sign In</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

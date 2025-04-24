@@ -1,15 +1,453 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
 <style>
-    body{
-        background: url("{% static 'img/frontend.jpg' %}");
-        background-position: center 0px;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-    }
+  .hero-section {
+    background: linear-gradient(to right, #f8f9fa, #eaf4f4);
+    padding: 80px 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .text-content h1 { font-size: 3rem; font-weight: bold; color: #6C63FF; }
+  .text-content .highlight { color: #FF6F91; }
+  .text-content p { font-size: 1.1rem; color: #444; margin-top: 15px; line-height: 1.6; }
+  .btn-book {
+    background-color: #6c63ff;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    margin-top: 30px;
+    display: inline-block;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+  }
+  .btn-book:hover { background-color: #5548c8; }
+  .hero-image {
+    max-width: 85%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  .testimonial-section {
+    background: linear-gradient(to right, #ff4d88, #d63384);
+    color: white;
+    padding: 80px 20px;
+    border-radius: 12px;
+    margin: 60px auto;
+    max-width: 1000px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+  .testimonial-heading { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+  .underline {
+    width: 60px;
+    height: 3px;
+    background-color: white;
+    margin: 0 auto 20px;
+    border: none;
+  }
+  .testimonial-text { font-size: 1.1rem; line-height: 1.7; max-width: 700px; margin: 0 auto 30px; }
+  .testimonial-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .testimonial-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+  .testimonial-name { font-weight: 600; margin-left: 10px; font-size: 1rem; }
+  .chatbot-toggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #6a11cb;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 24px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 1001;
+  }
+  .chatbot-window {
+    position: fixed;
+    bottom: 90px;
+    right: 25px;
+    width: 300px;
+    max-height: 450px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+  }
+  .chatbot-header {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 12px 16px;
+    font-weight: bold;
+  }
+  .chatbot-messages {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 14px;
+  }
+  .chatbot-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+  }
+  .chatbot-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+  }
+  .chatbot-input button {
+    background-color: #6a11cb;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+  }
+  .chat-message { margin-bottom: 8px; }
+  .chat-message.user { text-align: right; color: #6a11cb; }
+  .chat-message.bot { text-align: left; color: #444; }
+  /* Appointment Section */
+.appointment-section {
+  background: linear-gradient(to right,  rgb(108 99 255 / 42%), rgba(255, 102, 204, 0.7)),
+              url('/static/img/frontend-bh3.jpg') no-repeat center center / cover;
+  padding: 0px 20px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 100vh;
+ 
+}
+
+.appointment-section .overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0%);
+  z-index: 1;
+}
+
+.appointment-form-box {
+  position: relative;
+  z-index: 2;
+  background: white;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 1);
+  width: 90%;
+  max-width: 700px;
+  text-align: center;
+  margin-top:90px;
+  
+}
+
+.appointment-form-box h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.appointment-form-box p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 1rem;
+}
+
+.btn-submit {
+  background: #d63384;
+  border: none;
+  padding: 10px 25px;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: #c2185b;
+}
+.health-flashcard {
+  background: linear-gradient(to right,rgb(255, 255, 255),rgb(255, 255, 255));
+  padding: 0px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgb(255, 254, 254);
+  text-align: center;
+  animation: bounceFade 1.2s ease forwards;
+}
+
+.health-flashcard .main-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #2f2f2f;
+  margin-bottom: 12px;
+}
+
+.health-flashcard .sub-text {
+  font-size: 1.15rem;
+  color: #555;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.health-flashcard .highlight {
+  color: #d63384;
+  font-weight: 600;
+}
+
+.health-flashcard .emoji-burst {
+  font-size: 1.5rem;
+  letter-spacing: 8px;
+}
+
+@keyframes bounceFade {
+  0% {
+    transform: scale(0.9) translateY(30px);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05) translateY(-10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+
 </style>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left: Text -->
+      <div class="col-md-6 text-content">
+        <h1>Your Health, <span class="highlight">Our Priority</span></h1>
+        <p>Trusted medical care and expert doctors available at your fingertips. Book an appointment with just one click.</p>
+        <a href="{% url 'book_appointment' %}" class="btn-book">Book Appointment</a>
+      </div>
+      <!-- Right: Image -->
+      <div class="col-md-6 text-right">
+        <img src="{% static 'img/hero-doctor.jpg' %}" alt="Doctor" class="hero-image">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section style="background-color: #fdfdff; padding: 80px 0;">
+  <div class="container text-center">
+    <h2 class="mb-4" style="font-weight: 600; color: #333;">Our Services</h2>
+    <p class="text-muted mb-5" style="max-width: 600px; margin: 0 auto;">Delivering expert care with compassion and precision across all healthcare needs.</p>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="p-4 bg-white rounded shadow-sm h-100">
+          <div style="font-size: 40px; color: #D1007F;" class="mb-3">
+            <i class="fas fa-pills"></i>
+          </div>
+          <h5 style="font-weight: 600;">Medical Treatment</h5>
+          <p class="text-muted">Accurate diagnosis with latest medicines by our expert physicians.</p>
+          <a href="#" class="btn btn-sm" style="background-color: #D1007F; color: white; font-weight: 500;">Learn More</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4 bg-white rounded shadow-sm h-100">
+          <div style="font-size: 40px; color: #D1007F;" class="mb-3">
+            <i class="fas fa-briefcase-medical"></i>
+          </div>
+          <h5 style="font-weight: 600;">Emergency Help</h5>
+          <p class="text-muted">24/7 emergency services, always ready for critical medical aid.</p>
+          <a href="#" class="btn btn-sm" style="background-color: #D1007F; color: white; font-weight: 500;">Learn More</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4 bg-white rounded shadow-sm h-100">
+          <div style="font-size: 40px; color: #D1007F;" class="mb-3">
+            <i class="fas fa-stethoscope"></i>
+          </div>
+          <h5 style="font-weight: 600;">Regular Examination</h5>
+          <p class="text-muted">Track your health with regular doctor checkups and feedback.</p>
+          <a href="#" class="btn btn-sm" style="background-color: #D1007F; color: white; font-weight: 500;">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust Section -->
+<section style="position: relative; background: linear-gradient(to right, rgba(108,99,255,0.3), rgba(255,255,255,0.4)), url('{% static 'img/family-bg.png' %}') no-repeat center center / cover; padding: 100px 0;">
+  <div class="container">
+    <div class="row justify-content-end">
+      <div class="col-md-6">
+        <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 15px 40px rgba(255, 255, 255, 0.99);">
+          <h2 style="font-weight: 700; color: #333;">People Trust Me</h2>
+          <h5 class="mb-3" style="color: #6c63ff;">because my patients are my family</h5>
+          <p style="color: #555;">One of the most important factors about people’s lives is the information and use of medicine. It depends on how skillfully doctors apply their knowledge when dealing with patients.</p>
+          <div class="row text-center mt-4">
+            <div class="col">
+              <h3 style="color: #d61c74; font-weight: bold;">9000+</h3>
+              <p class="mb-0">Satisfied Patients</p>
+            </div>
+            <div class="col">
+              <h3 style="color: #d61c74; font-weight: bold;">300+</h3>
+              <p class="mb-0">Families Trust</p>
+            </div>
+            <div class="col">
+              <h3 style="color: #d61c74; font-weight: bold;">24/7</h3>
+              <p class="mb-0">Emergency Help</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonial Section -->
+<section class="testimonial-section">
+  <div class="testimonial-content text-center">
+    <h2 class="testimonial-heading">Testimonials</h2>
+    <hr class="underline">
+    <p class="testimonial-text">I have always been able to talk to the doctor and get my problems resolved. Coming here is like dealing with trusted family. Would not consider changing doctors.</p>
+    <div class="testimonial-user">
+      <img src="{% static 'img/avatar1.png' %}" alt="User" class="testimonial-avatar">
+      <img src="{% static 'img/avatar2.png' %}" alt="User" class="testimonial-avatar">
+      <img src="{% static 'img/avatar3.png' %}" alt="User" class="testimonial-avatar">
+      <span class="testimonial-name">James Smith, 3th Avenue</span>
+    </div>
+  </div>
+</section>
+
+<!-- Health Tips & Blog -->
+<section class="py-5" style="background: linear-gradient(to right, #e7cdf5, #c8d9fa);">
+  <div class="container-fluid px-lg-5">
+    <div class="row g-0 d-flex align-items-stretch">
+      <!-- Left Box -->
+      <div class="col-lg-6 d-flex align-items-stretch">
+        <div class="bg-white shadow-sm p-4 rounded w-100">
+          <h2 class="fw-bold mb-1">Prolong <span class="text-primary">Life</span></h2>
+          <p class="text-muted mb-4">Taking care of your health every day.</p>
+          <p class="text-muted">Write down health goals. They can be short or long term. Health includes mental clarity and emotional balance too.</p>
+          <div class="row mt-4">
+            <div class="col-md-6 mb-3">
+              <img src="{% static 'img/download.jpg' %}" class="img-fluid rounded" alt="Life Image">
+            </div>
+            <div class="col-md-6 mb-3">
+              <img src="{% static 'img/yoga!.jpg' %}" class="img-fluid rounded" alt="diet Image">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right Blog -->
+      <div class="col-lg-6 d-flex flex-column justify-content-between ps-lg-4 mt-4 mt-lg-0">
+        <div class="d-flex bg-white shadow-sm rounded overflow-hidden mb-4 animate__animated animate__fadeInRight">
+          <img src="{% static 'img/blog1.jpg' %}" class="img-fluid" style="width: 40%; object-fit: cover;" alt="Meditation">
+          <div class="p-3">
+            <h5 class="fw-bold">Yoga for Relaxation</h5>
+            <p class="text-muted small mb-2">Practice daily to stay calm, focused and stress-free.</p>
+            <a href="#" class="text-primary">Learn More →</a>
+          </div>
+        </div>
+        <div class="d-flex bg-white shadow-sm rounded overflow-hidden mb-4 animate__animated animate__fadeInRight">
+          <img src="{% static 'img/blog2.jpg' %}" class="img-fluid" style="width: 40%; object-fit: cover;" alt="Healthy Food">
+          <div class="p-3">
+            <h5 class="fw-bold">Simple Ways to Eat Healthy</h5>
+            <p class="text-muted small mb-2">Include more greens, hydrate well and avoid processed meals.</p>
+            <a href="#" class="text-primary">Learn More →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chatbot -->
+
+
+<button class="chatbot-toggle" onclick="toggleChatbot()">💬</button>
+<div class="chatbot-window" id="chatbot">
+  <div class="chatbot-header">HealthMate Assistant</div>
+  <div class="chatbot-messages" id="chatMessages">
+    <div class="chat-message bot">Hi there! How can I assist you today?</div>
+  </div>
+  <div class="chatbot-input">
+    <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleKey(event)">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+  function toggleChatbot() {
+    const bot = document.getElementById("chatbot");
+    bot.style.display = bot.style.display === "flex" ? "none" : "flex";
+  }
+
+  function handleKey(event) {
+    if (event.key === "Enter") sendMessage();
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("chatInput");
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const chat = document.getElementById("chatMessages");
+    chat.innerHTML += `<div class="chat-message user">${msg}</div>`;
+
+    setTimeout(() => {
+      const reply = generateBotReply(msg);
+      chat.innerHTML += `<div class="chat-message bot">${reply}</div>`;
+      chat.scrollTop = chat.scrollHeight;
+    }, 600);
+
+    input.value = "";
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function generateBotReply(message) {
+    const m = message.toLowerCase();
+    if (m.includes("appointment")) return "You can book an appointment from the homepage.";
+    if (m.includes("doctor")) return "We have multiple specialists available!";
+    if (m.includes("hello") || m.includes("hi")) return "Hello! How can I help you?";
+    return "I'm just a demo bot 🤖, but I'm here to help!";
+  }
+</script>
+
+
+<!-- Appointment Form Section -->
+<section class="appointment-section">
+  <div class="overlay"></div>
+  <div class="appointment-form-box">
+    <div class="health-flashcard mb-4 animate-flashcard">
+      <h1 class="main-title">Health is the True Wealth</h1>
+      <p class="sub-text">
+        Your body is your greatest asset. <br>
+        Fuel it with <span class="highlight">clean habits</span>, nurture it with <span class="highlight">yoga & meditation</span>,
+        and protect it with regular <span class="highlight">health checkups</span>.
+        <br><br>
+        Start today — because prevention is always better than cure.
+      </p>
+      <div class="emoji-burst mt-3">🧘‍♂️ ❤️ 🥗 🩺 🌿</div>
+    </div>
+  </div>
+  </section>    
+
 {% endblock %}

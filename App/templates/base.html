@@ -1,135 +1,119 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap 5 CSS  -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>{% block title %}HealthMate{% endblock title %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- AOS CSS in <head> -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- FontAwesome  -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    
-    <!-- Favicon  -->
-    <link  rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Logo  -->
-    <link  rel="shortcut icon" href="{% static 'img/logo.ico' %}">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/style_.css' %}">
 
+  <!-- Inline Theme Styling -->
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      padding-top: 80px; /* space for navbar */
+    }
 
-    <!-- Static CSS  -->
-    <link rel="stylesheet" href="{% static 'css/style_.css' %}">
+    .navbar {
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
 
-        
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #6C63FF !important;
+      display: flex;
+      align-items: center;
+    }
 
+    .navbar-brand i {
+      margin-right: 8px;
+      color: #FF6F91; /* Pink heart */
+    }
 
-    <title>{% block title %}Mastery Hospital{% endblock title %}</title>
+    .nav-link {
+      font-weight: 600;
+      color: #333 !important;
+      margin-left: 15px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: #6C63FF !important;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 20px 0;
+      background: #343a40;
+      color: #f8f9fa;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
 
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-light">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'frontend' %}">
+      <i class="fas fa-heartbeat"></i> HealthMate
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="wrapper">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-                <div class="col-sm">
-                    <a class="navbar-brand flex-grow-1" id="nav-content">
-                        {% block nav-content %}
-                        <i class="fas fa-briefcase-medical"></i>&nbsp;&nbsp; Mastery Hospital
-                        {% endblock nav-content %}
-                    </a>
-                </div>
-
-                <!-- Time ======= ( ROOT ) ======= -->
-                {% block time %}{% endblock time %}
-
-                <div class="col-sm">
-                    {% block btn-nav %}
-                    <a href="{% url 'backend' %}" class="btn btn-outline-info btn-sm border-light" id="btn-nav">Login</a>
-                    {% endblock btn-nav %}
-                </div>
-
-            </nav>
-        </header>
-
-
-        
-  
-        
-        <!--========= Block Content (ROOT) =========-->
-        {% block content %}{% endblock content %}
-
-
-
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="{% url 'frontend' %}" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="{% url 'book_appointment' %}" class="nav-link">Book Appointment</a></li>
+        {% if not user.is_authenticated %}
+        <li class="nav-item"><a href="{% url 'login' %}?next=/doctor/dashboard/" class="nav-link">Doctor Login</a></li>
+        <li class="nav-item"><a href="{% url 'login' %}?next=/patient/dashboard/" class="nav-link">Patient Login</a></li>
+        <li class="nav-item"><a href="/admin/" class="nav-link">Admin Login</a></li>
+      {% endif %}
+        {% if user.is_authenticated %}
+          {% if user.is_superuser %}
+            <li class="nav-item"><a href="/admin/" class="nav-link">Admin Dashboard</a></li>
+          {% elif user.is_staff %}
+            <li class="nav-item"><a href="{% url 'doctor_dashboard' %}" class="nav-link">Doctor Dashboard</a></li>
+          {% else %}
+            <li class="nav-item"><a href="{% url 'patient_dashboard' %}" class="nav-link">Patient Dashboard</a></li>
+          {% endif %}
+          <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+        {% else %}
+          <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+          <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li>
+        {% endif %}
+      </ul>
     </div>
-    <!-- End Wrapper  -->
+  </div>
+</nav>
 
-    <!-- Footer  -->
-    <footer style="margin-top: 10rem;" class="bg-dark text-center text-lg-start text-light" id="footer">
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            Copyright &copy; {% now "Y" %} <span id="all-rights">All rights reserved</span> | Made with 
-            <i class="text-danger fas fa-heartbeat blink_me" style="font-size: 15px;"></i> by
-            <a href="#" target="_blank" style="color: #0dcaf0; text-decoration: none;">Django Mastery</a>
-        </div>
-    </footer>
+<!-- Main Content -->
+<div class="container">
+  {% block content %}{% endblock %}
+</div>
 
+<!-- Footer -->
+<footer>
+  &copy; {% now "Y" %} HealthMate | Made with <i class="fas fa-heart text-danger"></i> by Django Mastery
+</footer>
 
-     
-    <!-- Modal (Logout Confirmation) -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="logoutModalLabel"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Logout</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center txt-sm">
-                    <span class="text-danger"><i class="fas fa-sign-out-alt fa-3x mt-4"></i></span>
-                    <div class="mt-4 mb-4 text-danger txt-sm">Are you sure you want to exit the system</div>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm txt-sm" data-bs-dismiss="modal">Cancel</button>
-                <a href="{% url 'logout' %}" type="button" class="btn btn-outline-danger btn-sm txt-sm" style="text-decoration: none;">Logout</a>
-                </div>
-            </div>
-            </div>
-        </div>
-        
-
-
-
-
-    <!-- Bootstrap 5 JS  -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-
-    <!-- Jquery CDN  -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-    <!-- Input Mask CDN  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8-beta.17/jquery.inputmask.min.js" integrity="sha512-zdfH1XdRONkxXKLQxCI2Ak3c9wNymTiPh5cU4OsUavFDATDbUzLR+SYWWz0RkhDmBDT0gNSUe4xrQXx8D89JIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- Sweet Alert CDN  -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
-    <!-- Static JS  -->
-    <script src="{% static 'js/script.js' %}"></script>
-
-    <script>
-        (function blink(){
-            $('.blink_me').fadeOut(1000).fadeIn(1000, blink);
-        })();
-    </script>
-
-
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

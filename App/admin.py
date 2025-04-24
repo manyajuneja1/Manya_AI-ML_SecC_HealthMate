@@ -11,3 +11,6 @@ class PatientAdmin(admin.ModelAdmin):
     list_per_page = 2
 
 admin.site.register(Patient, PatientAdmin)
+from .models import Appointment
+
+admin.site.register(Appointment)
