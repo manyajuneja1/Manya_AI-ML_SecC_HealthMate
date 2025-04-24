@@ -57,6 +57,9 @@ HealthMate is a modern web-based healthcare management platform that allows pati
 ![Admin Panel](App/static/images/screenshots/admin_dashboard.png)
 
 ---
+### 👤 Developed by  
+**Manya Juneja**  
+📧 manyajuneja03@gmail.com
 
 ## 🚀 Getting Started
 
