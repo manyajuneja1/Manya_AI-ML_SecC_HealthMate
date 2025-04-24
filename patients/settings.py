@@ -2,7 +2,7 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 import os
-import dj_database_url # type: ignore
+#import dj_database_url # type: ignore
 """
 Django settings for patients project.
 
