@@ -425,3 +425,9 @@ def update_appointment_status(request, appointment_id):
         messages.success(request, f"Appointment marked as {new_status}.")
 
     return redirect('doctor_dashboard')
+
+# App/views.py
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html')  # Ensure this template exists
