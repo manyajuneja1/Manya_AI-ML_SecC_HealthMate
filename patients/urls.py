@@ -7,12 +7,13 @@ from App import views
 urlpatterns = [
     # Admin panel
     path('admin/', admin.site.urls),
+  
 
     # Include all app-level URLs
     path('', include('App.urls')),
 
     # Website Frontend Page
-    path('home/', views.frontend, name='frontend'),
+    path('', views.frontend, name='frontend'),
 
     # Backend dashboard
     path('backend/', views.backend, name='backend'),
