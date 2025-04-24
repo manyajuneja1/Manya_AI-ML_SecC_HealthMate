@@ -56,17 +56,10 @@ HealthMate is a modern web-based healthcare management platform that allows pati
 ### ⚙️ Django Admin Panel
 ![Admin Panel](App/static/images/screenshots/admin_dashboard.png)
 
-<<<<<<< HEAD
----
-### 👤 Developed by  
-**Manya Juneja**  
-📧 manyajuneja03@gmail.com
-
-=======
- 👤 Developed by
+###👤 Developed by
 **MANYA JUNEJA**
 📧 manyajuneja03@gmail.com
->>>>>>> e8597a5 (Save local changes before pull)
+
 ## 🚀 Getting Started
 
 ```bash
