@@ -1,4 +1,8 @@
+import pymysql
+pymysql.install_as_MySQLdb()
+
 import os
+import dj_database_url # type: ignore
 """
 Django settings for patients project.
 
@@ -78,16 +82,24 @@ WSGI_APPLICATION = 'patients.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+#DATABASES = {
+  #  'default': {
+  #      'ENGINE': 'django.db.backends.mysql',
+  #      'NAME': 'healthmate_db',        # The DB you created in MySQL
+   #     'USER': 'root',                 # Or your MySQL username
+  #      'PASSWORD': 'Manya',            # Replace this!
+    #    'HOST': 'localhost',
+    #    'PORT': '3306',
+   #     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+   # }
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'healthmate_db',        # The DB you created in MySQL
-        'USER': 'root',                 # Or your MySQL username
-        'PASSWORD': 'Manya',            # Replace this!
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
+
 
 
 # Password validation
@@ -150,5 +162,12 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'yudikjuneja.in@gmail.com'  # Replace with your email
 EMAIL_HOST_PASSWORD = 'wtry kbdj sywi ulhh'  # Use App Password, not your main password
 
+# Render Deployment
+ALLOWED_HOSTS = ['*']
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# For security
+CSRF_TRUSTED_ORIGINS = ['https://your-app-name.onrender.com']
 
 
