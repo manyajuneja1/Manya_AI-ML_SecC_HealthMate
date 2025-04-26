@@ -22,7 +22,7 @@ HealthMate is a modern web-based healthcare management platform that allows pati
 - Database: MySQL
 - Frontend: HTML, CSS, Bootstrap, JavaScript
 - Mail: Django Email Backend
-- Hosting: GitHub / Render / Railway (TBD)
+- Hosting: GitHub / Render 
 
 ---
 Video presentation link : https://drive.google.com/file/d/1MQIH08FtFYHb0uPxfO7mjJyKYmUjZ4pb/view?usp=sharing
