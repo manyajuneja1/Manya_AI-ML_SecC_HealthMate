@@ -27,10 +27,19 @@ HealthMate is a modern web-based healthcare management platform that allows pati
 ---
 Video presentation link : https://drive.google.com/file/d/1MQIH08FtFYHb0uPxfO7mjJyKYmUjZ4pb/view?usp=sharing
 ---
-Project report : 
 
+Project report : https://docs.google.com/document/d/1N0hOc7tITM6NJ-0n0rmNnKxT3tz2Zlnm/edit?usp=drive_link&ouid=110297507664336986665&rtpof=true&sd=true
+---
+
+Project powerpoint presentation : https://docs.google.com/presentation/d/1IZb3WX8ZtHmUsqInJ8Re-M65FEyQOrdM/edit?usp=drive_link&ouid=110297507664336986665&rtpof=true&sd=true
+---
+
+Deployed Website Link: https://healthmate-55cn.onrender.com/
 
 ---
+
+---
+
 ## 📸 UI Screenshots
 
 ### 🏠 Home Page
