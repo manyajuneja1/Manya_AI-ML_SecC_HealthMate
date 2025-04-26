@@ -25,7 +25,12 @@ HealthMate is a modern web-based healthcare management platform that allows pati
 - Hosting: GitHub / Render / Railway (TBD)
 
 ---
+Video presentation link : https://drive.google.com/file/d/1MQIH08FtFYHb0uPxfO7mjJyKYmUjZ4pb/view?usp=sharing
+---
+Project report : 
 
+
+---
 ## 📸 UI Screenshots
 
 ### 🏠 Home Page
