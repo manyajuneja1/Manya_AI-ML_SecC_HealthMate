@@ -69,9 +69,7 @@ Deployed Website Link: https://healthmate-55cn.onrender.com/
 ### ⚙️ Django Admin Panel
 ![Admin Panel](App/static/images/screenshots/admin_dashboard.png)
 
-###👤 Developed by
-**MANYA JUNEJA**
-📧 manyajuneja03@gmail.com
+
 
 ## 🚀 Getting Started
 
